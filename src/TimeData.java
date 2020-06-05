@@ -39,7 +39,12 @@ public class TimeData{
         System.out.println(data);
     }
 
-    public boolean saveData() throws Exception{
-        return true;
+    public void saveData() throws Exception{
+        for (Entry entry:data){
+            String request = webApi + "action=add_data&id="+uid+
+                    "time_start="+ entry.timeStart +
+                    "time_end="+ entry.timeEnd +
+                    "comment="+ entry.comment;
+        }
     }
 }
