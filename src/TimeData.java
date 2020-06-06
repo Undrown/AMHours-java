@@ -29,12 +29,9 @@ public class TimeData{
         for (Object obj:array){
             //для каждой записи
             JSONObject jsonObj = (JSONObject)obj;
-            data.add(new Entry(
-                    uid,
-                    jsonObj.get("time_start").toString(),
-                    jsonObj.get("time_end").toString(),
-                    jsonObj.get("comment").toString()
-            ));
+            jsonObj.put("uid", this.uid);
+            System.out.println(jsonObj);
+            data.add(new Entry(jsonObj.toString()));
         }
         System.out.println(data);
     }
