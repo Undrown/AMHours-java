@@ -1,5 +1,9 @@
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpRequest;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DatabaseConnector {
@@ -34,11 +38,23 @@ public class DatabaseConnector {
     }
 
     /**
-     * Update entry into server DB by uid & eid
+     * Update entry into server DB by time_add
      * @param entry
      * @throws IOException if HTTP-request failed
      */
-    public void performUpdateRequest(Entry entry) throws IOException{
+    public boolean performUpdateRequest(Entry entry) throws IOException{
+        String request = webApi + "action=update_data&time_add=" + entry.timeAdd +
+                "&time_start=" + entry.timeStart +
+                "&time_end=" + entry.timeEnd +
+                "&comment=" + entry.comment;
+        return true;
+    }
 
+    public void performAsyncPush(ArrayList<Entry> data){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(webApi))
+                .timeout(Duration.ofSeconds(5))
+                .header("Content-Type", "application/json")
+                .build();
     }
 }
